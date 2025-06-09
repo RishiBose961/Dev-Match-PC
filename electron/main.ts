@@ -30,9 +30,9 @@ let win: BrowserWindow | null;
 
 function createWindow() {
 win = new BrowserWindow({
-  width: 1200,
+  width: 1500,
   height: 1000,
-  icon: path.join(process.env.VITE_PUBLIC, 'imge.ico'),
+  icon: path.join(process.env.VITE_PUBLIC, 'dev.png'),
   resizable: true,
   fullscreenable: true,
   frame: true,
