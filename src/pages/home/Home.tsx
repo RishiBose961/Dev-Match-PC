@@ -1,14 +1,15 @@
-import Main_Find_Devs from "../find_devs/Main_Find_Devs";
+
 
 const Home = () => {
-
- 
+  const handle = () => {
+    alert('Home page loaded');
+  }
   return (
-    <div className=" max-w-6xl mx-auto">
-      <Main_Find_Devs />
-
+    <div>Home
+      <button onClick={handle}>Click Me</button>
+      <p>Welcome to the home page!</p>
     </div>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

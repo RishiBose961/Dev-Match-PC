@@ -1,3 +1,4 @@
+import GetJoinRequestById from "@/hook/GetJoinRequest/GetJoinRequestById";
 import {
   Table,
   TableBody,
@@ -7,13 +8,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import GetJoinRequestById from "@/hook/GetJoinRequest/GetJoinRequestById";
-
-import { X } from "lucide-react";
 import AcceptedButton from "../Room_Info/AcceptedButton";
 import { Button } from "../ui/button";
+import { X } from "lucide-react";
 const PendingRequest = () => {
-  const { isPending, getJoinRequestById } = GetJoinRequestById() as {
+    const { isPending, getJoinRequestById } = GetJoinRequestById() as {
     isPending: boolean;
     getJoinRequestById: {
       _id: string;
@@ -52,11 +51,10 @@ const PendingRequest = () => {
     });
   };
 
-  
   return (
-    <div>
+     <div>
       <Table>
-        <TableCaption>A list of your recent Session Created.</TableCaption>
+        <TableCaption>A list of your recent Pending Join Request</TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead>Session</TableHead>
@@ -95,7 +93,7 @@ const PendingRequest = () => {
         ))}
       </Table>
     </div>
-  );
-};
+  )
+}
 
-export default PendingRequest;
+export default PendingRequest

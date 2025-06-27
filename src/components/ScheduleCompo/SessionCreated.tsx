@@ -7,21 +7,20 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import useGetTimeSchedule from "@/hook/getTimeSchedulling/GetTimeSchedule";
-import { Trash, Video } from "lucide-react";
+import GetTimeSchedule from "@/hook/getTimeSchedulling/GetTimeSchedule";
 import { Button } from "../ui/button";
-
-// Define the ScheduleItem type
+import { Trash, Video } from "lucide-react";
 interface ScheduleItem {
   session: string;
   statingdatetime: string;
   endingdatetime: string;
 }
 
-const UpcomingSession = () => {
-  const scheduleData = useGetTimeSchedule();
 
-  if (!("getSchedule" in scheduleData)) {
+const SessionCreated = () => {
+  const scheduleData = GetTimeSchedule();
+
+   if (!("getSchedule" in scheduleData)) {
     return <div>Error: Invalid schedule data</div>;
   }
 
@@ -30,9 +29,8 @@ const UpcomingSession = () => {
   if (isPending) {
     return <div>Loading...</div>;
   }
-
   return (
-    <div className="mt-4">
+       <div className="mt-4">
       <Table>
         <TableCaption>A list of your recent Session Created.</TableCaption>
         <TableHeader>
@@ -72,4 +70,4 @@ const UpcomingSession = () => {
   );
 };
 
-export default UpcomingSession;
+export default SessionCreated;

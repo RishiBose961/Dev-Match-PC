@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, ipcMain } from "electron";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -35,6 +35,7 @@ win = new BrowserWindow({
   icon: path.join(process.env.VITE_PUBLIC, 'dev.png'),
   resizable: true,
   fullscreenable: true,
+  titleBarStyle: "hidden",
   frame: true,
   webPreferences: {
     preload: path.join(__dirname, "preload.mjs"), // ✅ Make sure this path is correct
@@ -48,13 +49,30 @@ win = new BrowserWindow({
   win.webContents.on("did-finish-load", () => {
     win?.webContents.send("main-process-message", new Date().toLocaleString());
   });
+  ipcMain.on('minimize-app', () => {
+    if (win) win.minimize();
+  });
+  ipcMain.on('close-app', () => {
+    if (win) win.close();
+  });
 
+  ipcMain.on('maximize-app', () => {
+    if (win) {
+      if (win.isMaximized()) {
+        win.unmaximize();
+      } else {
+        win.maximize();
+      }
+    }
+  });
   if (VITE_DEV_SERVER_URL) {
     win.loadURL(VITE_DEV_SERVER_URL);
+    
   } else {
     // win.loadFile('dist/index.html')
     win.loadFile(path.join(RENDERER_DIST, "index.html"));
   }
+ 
 }
 
 // Quit when all windows are closed, except on macOS. There, it's common

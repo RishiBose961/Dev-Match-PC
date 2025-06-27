@@ -21,3 +21,8 @@ contextBridge.exposeInMainWorld('ipcRenderer', {
 });
 
 // ✅ Add this new block to expose electron-store
+contextBridge.exposeInMainWorld('electronAPI', {
+  minimize: () => ipcRenderer.send('minimize-app'),
+  close: () => ipcRenderer.send('close-app'),
+  maximize: () => ipcRenderer.send('maximize-app'),
+});

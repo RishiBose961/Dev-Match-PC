@@ -1,25 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
-import { useSelector } from "react-redux";
 
-const GetJjoinRoom = (id: string) => {
-    
-    const { user } = useSelector(
-    (state: {
-      auth: {
-        isLoading: boolean;
-        user: { token: string , _id: string };
-      };
-    }) => state.auth
-  );
+const GetOnline = () => {
   const {
     isPending,
     error,
     isError,
-    data: getRoomById,
+    data: getOnline,
   } = useQuery({
-    queryKey: ["getRoomByIds", id],
+    queryKey: ["getOnlineInfos"],
     queryFn: async () => {
-      return await fetch(`http://localhost:5000/api/get/roomid/${id}`, {
+      return await fetch(`http://localhost:5000/api/getOnline`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -38,7 +28,7 @@ const GetJjoinRoom = (id: string) => {
     return <span>Pending...</span>;
   }
 
-  return { isPending, getRoomById };
+  return { isPending, getOnline };
 }
 
-export default GetJjoinRoom
+export default GetOnline

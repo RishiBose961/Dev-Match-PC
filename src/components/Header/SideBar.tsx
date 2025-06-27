@@ -1,17 +1,19 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { logoutUserAction } from "@/slice/authSlice";
 import {
-  BellRing,
+  BarChart3,
   Calendar,
+  LayoutDashboard,
   Menu,
-  Presentation,
+  Radio,
   User2,
-  Users,
   X,
 } from "lucide-react";
 import { useState } from "react";
-import { useSelector } from "react-redux";
-import { useLocation, Link } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useLocation } from "react-router";
+import NavBar from "./NavBar";
 
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -30,28 +32,34 @@ export default function Sidebar() {
     }) => state.auth
   );
 
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(logoutUserAction());
+  };
+
   const navLinks = [
     {
       to: "/",
-      label: "Find Devs",
-      icon: <Users className="w-5 h-5 mr-3" />,
+      label: "Dashboard",
+      icon: <LayoutDashboard className="w-5 h-5 mr-3" />,
     },
     ...(isAuthenticated
       ? [
           {
-            to: "/meeting-room",
-            label: "Meeting Room",
-            icon: <Presentation className="w-5 h-5 mr-3" />,
+            to: "/analytics",
+            label: "Analytics",
+            icon: <BarChart3 className="w-5 h-5 mr-3" />,
+          },
+          {
+            to: "/live",
+            label: "Go Live",
+            icon: <Radio className="w-5 h-5 mr-3" />,
           },
           {
             to: "/schedule",
             label: "Schedule",
             icon: <Calendar className="w-5 h-5 mr-3" />,
-          },
-          {
-            to: "/notification",
-            label: "Notification",
-            icon: <BellRing className="w-5 h-5 mr-3" />,
           },
         ]
       : []),
@@ -60,7 +68,6 @@ export default function Sidebar() {
       label: isAuthenticated ? "Profile" : "Login",
       icon: <User2 className="w-5 h-5 mr-3" />,
     },
- 
   ];
 
   return (
@@ -90,10 +97,9 @@ export default function Sidebar() {
           isOpen ? "translate-x-0" : "-translate-x-full"
         )}
       >
-        <div className="flex flex-col h-full py-6 px-4">
-        
-
-          <nav className="space-y-2 mt-12">
+        <div className="flex flex-col h-full py-3 px-4">
+          <nav className="space-y-2 ">
+            <NavBar />
             {navLinks.map((link) => {
               const isActive = location.pathname === link.to;
 
@@ -119,6 +125,12 @@ export default function Sidebar() {
           <div className="mt-auto text-sm text-center text-gray-400 dark:text-gray-600 pt-6">
             © 2025 DevMatch
           </div>
+          <Button
+            onClick={handleLogout}
+            className="w-full rounded-full bg-red-500 text-white hover:bg-red-900 mt-3"
+          >
+            Logout
+          </Button>
         </div>
       </div>
     </>

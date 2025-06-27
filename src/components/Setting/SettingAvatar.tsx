@@ -53,7 +53,7 @@ const SettingAvatar = ({ image }: SettingAvatarProps) => {
       return res.data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["aboutinfo"] });
+      queryClient.invalidateQueries({ queryKey: ["developerInfos"] });
       alert("Avatar updated successfully!");
     },
     onError: (error: unknown) => {

@@ -1,31 +1,28 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import App from "./App.tsx";
-import "./index.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { Provider } from "react-redux";
 import {
   createBrowserRouter,
   createRoutesFromElements,
   Route,
   RouterProvider,
 } from "react-router";
-import Home from "./pages/home/Home.tsx";
+import App from "./App.tsx";
+import PrivateRoute from "./components/PrivateRoute.tsx";
+import "./index.css";
 import Login from "./pages/auth/Login.tsx";
 import RegisterPage from "./pages/auth/Register.tsx";
-import Profile from "./pages/profile/Profile.tsx";
+import Home from "./pages/home/Home.tsx";
 import NotFound from "./pages/NotFound/NotFound.tsx";
-import { Provider } from "react-redux";
-import { store } from "./store.ts";
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-import PrivateRoute from "./components/PrivateRoute.tsx";
-import Schedule from "./pages/schedule/Schedule.tsx";
+import Profile from "./pages/profile/Profile.tsx";
 import SettingsPage from "./pages/Setting/setting.tsx";
-import JoinRequest from "./pages/join_Request/JoinRequest.tsx";
-import Room from "./pages/Room/Room.tsx";
-import Notication from "./pages/notification/Notication.tsx";
-import VideoMeeting from "./pages/Video-Meeting/VideoMeeting.tsx";
-
+import { store } from "./store.ts";
+import Schedule from "./pages/Schedules/Schedule.tsx";
+import GoLive from "./pages/GoLive/GoLive.tsx";
+import AudioSpace from "./pages/Audio-Space/Audio-Space.tsx";
 
 const queryClient = new QueryClient();
 
@@ -39,12 +36,10 @@ const router = createBrowserRouter(
       <Route path="*" element={<NotFound />} />
       {/* Protected Route */}
       <Route path="" element={<PrivateRoute />}>
-        <Route path="/schedule" element={<Schedule />} />
         <Route path="/setting" element={<SettingsPage />} />
-        <Route path="/request/:id" element={<JoinRequest />} />
-        <Route path="/meeting-room" element={<Room />} />
-        <Route path="/notification" element={<Notication />} />
-        <Route path="/meeting-room/:id" element={<VideoMeeting />} />
+        <Route path="/live" element={<GoLive />} />
+        <Route path="/schedule" element={<Schedule />} />
+        <Route path="/space/:id" element={<AudioSpace />} />
       </Route>
     </Route>
   )

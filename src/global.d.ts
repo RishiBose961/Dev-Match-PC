@@ -4,6 +4,9 @@ export {};
 declare global {
   interface Window {
     electronAPI: {
+      maximize(): void;
+      close(): void;
+      minimize(): void;
       deleteStoreValue(arg0: string): unknown;
       on: (channel: string, callback: (...args: any[]) => void) => void;
       getStoreValue: (key: string) => Promise<any>;

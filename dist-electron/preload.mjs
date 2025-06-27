@@ -18,3 +18,8 @@ electron.contextBridge.exposeInMainWorld("ipcRenderer", {
     return electron.ipcRenderer.invoke(channel, ...omit);
   }
 });
+electron.contextBridge.exposeInMainWorld("electronAPI", {
+  minimize: () => electron.ipcRenderer.send("minimize-app"),
+  close: () => electron.ipcRenderer.send("close-app"),
+  maximize: () => electron.ipcRenderer.send("maximize-app")
+});

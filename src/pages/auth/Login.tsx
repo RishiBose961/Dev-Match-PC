@@ -13,9 +13,7 @@ import { loadUser, loginUserAction } from "@/slice/authSlice";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-
-  // const { base_url } = CheckEnvironment();
+  const [error, setError] = useState<string>("");
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -37,26 +35,27 @@ const Login = () => {
         password,
       });
       dispatch(loginUserAction(response.data));
-      return response.data; // Return response data
+      return response.data;
     },
     onSuccess: () => {
       alert("Login successful!");
     },
-    onError: (error: { response: { data: string } }) => {
-      console.error(error?.response.data);
-      setError(error?.response.data);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    onError: (error: any) => {
+      console.error(error?.response?.data);
+      const errorMessage =
+        error?.response?.data?.message || "An unexpected error occurred";
+      setError(errorMessage);
     },
   });
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
-    // Basic validation
     if (!email || !password) {
       setError("Please fill in all fields");
       return;
     }
-
     loginMutation.mutate({ email, password });
   };
 
@@ -69,12 +68,9 @@ const Login = () => {
   }
 
   if (isAuthenticated) {
-    return isAuthenticated ? (
-      <Navigate to={`/`} replace />
-    ) : (
-      <Navigate to="/" replace />
-    );
+    return <Navigate to="/" replace />;
   }
+
   return (
     <div className="container mx-auto py-10">
       <Card className="max-w-2xl mx-auto">
@@ -86,7 +82,6 @@ const Login = () => {
           <form className="space-y-4" onSubmit={handleSubmit}>
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
-
               <Input
                 id="email"
                 name="email"
@@ -98,7 +93,6 @@ const Login = () => {
             </div>
             <div className="space-y-2">
               <Label htmlFor="password">Password</Label>
-
               <Input
                 id="password"
                 name="password"

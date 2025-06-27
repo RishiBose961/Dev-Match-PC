@@ -1,5 +1,5 @@
 import ProfileAvatar from "@/components/Find_Dev/ProfileAvatar";
-import FollowButton from "@/components/Follow/FollowButton";
+
 import { Badge } from "@/components/ui/badge";
 import { useQuery } from "@tanstack/react-query";
 
@@ -66,7 +66,7 @@ const Profile = () => {
 
   return (
     <div className="  transition-colors mb-20 duration-200">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="px-4 mt-2 sm:px-6 lg:px-8">
         <div className="shadow rounded-md overflow-hidden transition-colors duration-200">
           {/* Cover photo */}
           <div className="h-32 bg-gradient-to-r from-blue-500 to-purple-600 relative">
@@ -118,9 +118,7 @@ const Profile = () => {
                 </div>
               </div>
 
-              <div className="mt-4 md:mt-0 flex space-x-3">
-                <FollowButton/>
-              </div>
+             
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
